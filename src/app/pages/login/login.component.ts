@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/model/usuario';
+import { DatosService } from 'src/app/servicios/datos.service';
 import { LoginService } from 'src/app/servicios/login.service';
 
 @Component({
@@ -19,7 +21,11 @@ export class LoginComponent implements OnInit {
 //Boleana
 public usuarioIncorrecto:Boolean=false;
 
-constructor(private router:Router, private formBuilder: FormBuilder, private loginService:LoginService) {
+//Objeto
+public loginUser = new Usuario();
+
+constructor(private router:Router, private formBuilder: FormBuilder, private loginService:LoginService,  
+  private datosService:DatosService) {
 
   this.registroForm = this.formBuilder.group({
     password: ['', Validators.required],
@@ -42,8 +48,15 @@ constructor(private router:Router, private formBuilder: FormBuilder, private log
         this.registroForm.value.password
       ).subscribe(login => {
 
-        console.log('Inicio sesion ' + JSON.stringify(login));
-        this.router.navigate(['/login']);
+        this.loginUser = this.datosService.datosUsuarioConectado();
+        if(this.loginUser.password==this.registroForm.value.password){
+
+          console.log('Inicio sesion ' + JSON.stringify(login));
+          this.router.navigate(['/home']);
+
+        }else{
+          this.usuarioIncorrecto=true
+        }
 
       },(error:any) => {
         this.usuarioIncorrecto=true

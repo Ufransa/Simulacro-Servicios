@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { RegistroService } from './../../servicios/registro.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatosService } from 'src/app/servicios/datos.service';
 
 @Component({
   selector: 'app-registro',
@@ -19,7 +20,8 @@ export class RegistroComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder, 
       private registroService:RegistroService,
-      private router:Router) {
+      private router:Router,
+      private datosService:DatosService) {
       this.validatePassword=false;
   
   
@@ -37,7 +39,7 @@ export class RegistroComponent implements OnInit {
   onSubmit():void{
     this.submitted=true
 
-    if (this.registroForm.value.password != this.registroForm.value.contrasenarepe && this.registroForm.invalid) {
+    if (this.registroForm.value.password != this.registroForm.value.contrasenarepe) {
 
         this.validatePassword=true;
 
@@ -46,12 +48,21 @@ export class RegistroComponent implements OnInit {
         this.validatePassword=false
 
         this.registroService.registro(
+
           this.registroForm.value.name,
           this.registroForm.value.email,
           this.registroForm.value.password
+
         ).subscribe(login => {
 
+          this.datosService.introducirDatos( 
+            this.registroForm.value.name,
+            this.registroForm.value.email,
+            this.registroForm.value.password
+          );
+
           console.log('Inicio sesion ' + JSON.stringify(login));
+
           this.router.navigate(['/login']);
 
         });

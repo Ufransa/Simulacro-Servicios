@@ -1,0 +1,34 @@
+*{
+    font-family: 'Product Sans', 'Arial';
+  }
+  
+  
+  
+  form{
+    max-width: 30%;
+    max-height: 50%;
+    margin: auto;
+    margin-top: 30px;
+    border: 1px solid rgb(2, 2, 2);
+    padding: 8em;
+  }
+  
+  h1{
+    text-align: center;
+    font-family: 'SF Pro Display';
+    font-size: 2vw;
+    margin-bottom: 30px;
+  
+  }  
+  
+  .form-check{
+    margin-top: 50px;
+    margin-left: 15px;
+  }
+  
+  button{
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px;
+    width: 100px;
+  }
