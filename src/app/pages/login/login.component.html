@@ -9,29 +9,54 @@
     <title>Document</title>
 </head>
 <body>
-    <form class="container">
+    <form [formGroup]="registroForm" 
+    (ngSubmit)="onSubmit()"
+    class="container">
         <h1>LOGIN</h1>
         <div class="row">
             <div class="form-group col-12">
                 <label></label>
-                <input type="text" 
+                <input 
+                formControlName="email"
+                [ngClass]="{ 'is-invalid': 
+                submitted && f['email'].errors }"
+                type="text" 
                 class="form-control" 
                 aria-describedby="emailHelp" 
                 placeholder="Usuario (email) *">
             </div>
+
+            <div *ngIf="f['email']
+            .errors && f['email']
+            .errors['required'] && 
+            submitted">Por favor, introduzca un usuario correcto</div>
+
             <div class="form-group col-12">
                 <label></label>
-                <input type="text" 
+                <input 
+                formControlName="password"
+                [ngClass]="{ 'is-invalid': 
+                submitted && f['password'].errors }"
+                type="text" 
                 class="form-control"  
                 placeholder="Contraseña *" 
                 required>
             </div>
 
+            <div *ngIf="f['password']
+            .errors && f['password']
+            .errors['required'] && 
+            submitted">Por favor, revise la contraseña</div>
+
             <button type="submit" 
-            class="btn btn-primary">Enviar</button>
+            class="btn btn-primary">Iniciar sesión</button>
             <button type="submit" 
-            class="btn btn-primary red">Registrarse</button>
+            class="btn btn-primary red" 
+            (click)="goToRegistro()">Crear un usuario</button>
         </div>
+
+        <div class="error" 
+        *ngIf="usuarioIncorrecto">Usuario o contraseña INCORRECTO</div>
       </form>
 </body>
 </html>

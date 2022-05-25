@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'registro',
     component: RegistroComponent   //Y aquí le decimos que registro se refiere al componente registro
+  },
+  {
+    path: 'home',
+    component: HomeComponent   //Y aquí le decimos que home se refiere al componente home
   }
 ];
 
